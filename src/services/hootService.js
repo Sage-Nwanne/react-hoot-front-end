@@ -28,8 +28,48 @@ const show = async (hootId) => {
     }
   };
 
+const create = async (formData) => {
+    try {
+        const res = await fetch(BASE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
+
+const  createComment = async (hootId,formData) => {
+    try {
+        const res= await fetch(`${BASE_URL}/${hootId}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+    }
+
+    
 export {
-    index,show
+    index,
+    show,
+    create,
+    createComment,
 }
